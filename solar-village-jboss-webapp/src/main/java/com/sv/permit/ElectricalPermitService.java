@@ -29,7 +29,7 @@ public class ElectricalPermitService{
 
 	@POST
 	@Path("/rescindPermit")
-	@Produces("application/json")
+	@Produces("application/plain")
 	public String rescindPermit(@QueryParam("requestid") String requestid) {
 		System.out.println("Received get electrical permit request statuc for id. " + requestid);
 		//String requestid = String.valueOf(System.currentTimeMillis());
@@ -37,7 +37,7 @@ public class ElectricalPermitService{
 		String pattern = "{ \"requestid\":\"%s\", \"status\":\"%s\" }";
 		String response = String.format(pattern, requestid, requestStatus);
 		System.out.println("Response to request  : " + response);
-		return response;
+		return requestStatus;//response;
 	}
 
 	
@@ -56,7 +56,7 @@ public class ElectricalPermitService{
 
 	@GET 
 	@Path("getPermitRequestStatus")
-	@Produces("application/json")
+	@Produces("application/plain")
 	public String getPermitRequestStatus(@QueryParam("requestid") String requestid) {
 		System.out.println("Received get electrical permit request statuc for id. " + requestid);
 		//String requestid = String.valueOf(System.currentTimeMillis());
@@ -64,7 +64,7 @@ public class ElectricalPermitService{
 		String pattern = "{ \"requestid\":\"%s\", \"status\":\"%s\" }";
 		String response = String.format(pattern, requestid, requestStatus);
 		System.out.println("Response to request  : " + response);
-		return response;
+		return requestStatus;//response;
 	}
 
 }
