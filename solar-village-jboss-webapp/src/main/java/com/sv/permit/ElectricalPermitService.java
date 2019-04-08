@@ -25,19 +25,19 @@ import javax.ws.rs.core.Application;
 @Consumes({ "application/xml", "application/json" })
 public class ElectricalPermitService{
 
-	private static String[] status = { "APPROVED", "DENIED", "IN_PROGRESS" };
+	private static String[] status = { "IN_PROGRESS","APPROVED", "DENIED","IN_PROGRESS"  };
 
 	@POST
 	@Path("/rescindPermit")
-	@Produces("application/plain")
+	@Produces("application/json")
 	public String rescindPermit(@QueryParam("requestid") String requestid) {
-		System.out.println("Received get electrical permit request statuc for id. " + requestid);
+		System.out.println("Received Rescind electrical permit request for id. " + requestid);
 		//String requestid = String.valueOf(System.currentTimeMillis());
 		String requestStatus = "CANCELLED";
 		String pattern = "{ \"requestid\":\"%s\", \"status\":\"%s\" }";
 		String response = String.format(pattern, requestid, requestStatus);
 		System.out.println("Response to request  : " + response);
-		return requestStatus;//response;
+		return response;
 	}
 
 	
@@ -47,24 +47,25 @@ public class ElectricalPermitService{
 	public String submitPermitRequest(String customer) {
 		System.out.println("Received electrical permit request for customer. " + customer);
 		String requestId = String.valueOf(System.currentTimeMillis());
-		String requestStatus = status[new Random().nextInt(3)];
+		String requestStatus = "IN_PROGRESS";//status[new Random().nextInt(4)];
 		String pattern = "{ \"requestid\":\"%s\", \"status\":\"%s\" }";
 		String response = String.format(pattern, requestId, requestStatus);
 		System.out.println("Response to customer : " + response);
+		
 		return response;
 	}
 
 	@GET 
 	@Path("getPermitRequestStatus")
-	@Produces("application/plain")
+	@Produces("application/json")
 	public String getPermitRequestStatus(@QueryParam("requestid") String requestid) {
 		System.out.println("Received get electrical permit request statuc for id. " + requestid);
 		//String requestid = String.valueOf(System.currentTimeMillis());
-		String requestStatus = status[new Random().nextInt(3)];
+		String requestStatus = status[new Random().nextInt(4)];
 		String pattern = "{ \"requestid\":\"%s\", \"status\":\"%s\" }";
 		String response = String.format(pattern, requestid, requestStatus);
 		System.out.println("Response to request  : " + response);
-		return requestStatus;//response;
+		return response;
 	}
 
 }

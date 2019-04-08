@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+	<script src="http://code.jquery.com/jquery-2.0.1.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+	<script type="text/javascript">
+		function UserAction() { 
+			var name = document.getElementById('text-1').value;
+			var line1 = document.getElementById('text-2').value;
+			var line2 = document.getElementById('text-3').value;
+			var city = document.getElementById('text-4').value;
+			var state = document.getElementById('text-5').value;
+			var zip = document.getElementById('text-6').value;
+			var date = document.getElementById('datetime-1').value;			
+			var notes = document.getElementById('textarea-1').value;
+			var obj = new Object();
+			  var newOrder = new Object();
+			  newOrder.customer = new Object();
+			   newOrder.electricalPermit = new Object();
+			   newOrder.hoaApproval = new Object();
+			   newOrder.orderHistory =  new Array();
+			   newOrder.orderID = "";
+			   newOrder.structuralPermit = new Object();
+			   newOrder.hoaApproval.notes = notes;
+			   newOrder.hoaApproval.requestedDate = date;
+			   newOrder.hoaApproval.approvalType ="";
+			   newOrder.hoaApproval.lastUpdateDate ="";
+			   newOrder.hoaApproval.requestId ="";
+			   newOrder.hoaApproval.status ="";			   
+			   
+			   newOrder.customer.zipCode = zip;
+			   newOrder.customer.city = city;
+			   newOrder.customer.name = name;
+			   newOrder.customer.addressLine1 = line1;
+			   newOrder.customer.addressLine2 = line2;
+			   newOrder.customer.state = state;
+			   newOrder.customer.phoneNumber = "";
+			   newOrder.customer.email = "";
+			   obj.jsonResponse = new Object();
+			   obj.newOrder = newOrder;
+			   var jsonString= JSON.stringify(obj);
+				console.log(jsonString);
+			    var xhttp = new XMLHttpRequest();
+			    xhttp.onreadystatechange = function() {
+			         if (this.readyState == 4 && this.status == 200) {
+			             alert(this.responseText);
+			         }
+			    };
+			    xhttp.open("POST", "http://localhost:8080/kie-server/services/rest/server/containers/Solar-Village-POC-v2_1.0.0/processes/com.myspace.solar_village_poc_v2.process.SolarVillageNewOrder/instances", true);
+			    xhttp.setRequestHeader ("Authorization", "Basic " + btoa("pamAdmin" + ":" + "redhatpam1!"));
+			    xhttp.setRequestHeader("Content-type", "application/json");
+				var response =     xhttp.send(jsonString);
+				alert(response);
+		} 
+	</script>
+<meta charset="ISO-8859-1">
+<title>New SOlar Oder</title>
+</head>
+<body>
+	<form id="form-1">
+		<h3 id="heading-1" align="center" class="ui-bar ui-bar-b ui-corner-all">Solar Village New Order Entry</h3>
+		<div class="ui-body ui-body-a ui-corner-all">
+			<p>
+				<h4 id="heading-2" class="ui-bar ui-bar-a ui-corner-all">Customer Information</h4>
+				<div class="ui-body ui-body-a ui-corner-all">
+					<p>
+						<div class="ui-field-contain">
+							<label for="text-1">Name</label>
+							<input name="text-1" id="text-1" data-clear-btn="true" value="" type="text"/>
+							
+						</div>
+						<div class="ui-field-contain">
+								<label for="text-2">Address Line1</label>
+								<input name="text-2" id="text-2" data-clear-btn="true" value="" type="text"/>
+								<label for="text-3">Address Line2</label>
+								<input name="text-3" id="text-3" data-clear-btn="true" value="" type="text"/>
+								<label for="text-4">City</label>
+								<input name="text-4" id="text-4" data-clear-btn="true" value="" type="text"/>
+								<label for="text-5">State</label>
+								<input name="text-5" id="text-5" data-clear-btn="true" value="" type="text"/>
+								<label for="text-6">Zip</label>
+								<input name="text-6" id="text-6" data-clear-btn="true" value="" type="text"/>				
+										
+							</div>
+					</p>
+				</div>
+			</p>
+		<h4 id="heading-3" class="ui-bar ui-bar-a ui-corner-all">HOA Meeting Details</h4>
+		<div class="ui-body ui-body-a ui-corner-all">
+			<p></p>
+			<div class="ui-field-contain">
+				<label for="datetime-1">HOA Meeting Schedule Date/Time</label>
+				<input name="datetime-1" id="datetime-1" data-clear-btn="true" value="2018-06-12T19:30" type="datetime-local"/>
+			</div>
+			<div class="ui-field-contain">
+				<label for="textarea-1">Notes</label>
+				<textarea name="textarea-1" id="textarea-1" data-clear-btn="true" cols="40" rows="8"></textarea>
+			</div>
+		</div>
+		</div>
+		<div class="ui-input-btn ui-btn ui-corner-all">
+			Submit
+			<input data-enhanced="true" type="button"   onclick="UserAction()" onvalue="Submit" id="button-1"/>
+		</div>
+	</form>
+</div></div></div></div></div></div>
+</div></div></div></div>
+</body>
+</html>

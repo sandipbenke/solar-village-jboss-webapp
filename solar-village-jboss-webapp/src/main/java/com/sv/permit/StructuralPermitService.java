@@ -24,13 +24,14 @@ import javax.ws.rs.core.Application;
 @Consumes({ "application/xml", "application/json" })
 public class StructuralPermitService {
 
-	private static String[] status = { "APPROVED", "DENIED", "IN_PROGRESS" };
+	private static String[] status = { "IN_PROGRESS","APPROVED", "DENIED" ,"IN_PROGRESS"};
 
 	@POST
 	@Path("/rescindPermit")
 	@Produces("application/json")
 	public String rescindPermit(@QueryParam("requestid") String requestid) {
-		System.out.println("Received get structural permit request statuc for id. " + requestid);
+		
+		System.out.println("Received Rescind structural permit request  for id. " + requestid);
 		//String requestid = String.valueOf(System.currentTimeMillis());
 		String requestStatus = "CANCELLED";
 		String pattern = "{ \"requestid\":\"%s\", \"status\":\"%s\" }";
@@ -46,7 +47,7 @@ public class StructuralPermitService {
 	public String submitPermitRequest(String customer) {
 		System.out.println("Received structural permit request for customer. " + customer);
 		String requestId = String.valueOf(System.currentTimeMillis());
-		String requestStatus = status[new Random().nextInt(3)];
+		String requestStatus = "IN_PROGRESS";//status[new Random().nextInt(4)];
 		String pattern = "{ \"requestid\":\"%s\", \"status\":\"%s\" }";
 		String response = String.format(pattern, requestId, requestStatus);
 		System.out.println("Response to structural customer : " + response);
@@ -59,7 +60,7 @@ public class StructuralPermitService {
 	public String getPermitRequestStatus(@QueryParam("requestid") String requestId) {
 		System.out.println("Received get structural permit request statuc for id. " + requestId);
 		//String requestId = String.valueOf(System.currentTimeMillis());
-		String requestStatus = status[new Random().nextInt(3)];
+		String requestStatus = status[new Random().nextInt(4)];
 		String pattern = "{ \"requestid\":\"%s\", \"status\":\"%s\" }";
 		String response = String.format(pattern, requestId, requestStatus);
 		System.out.println("Response to structural request  : " + response);
