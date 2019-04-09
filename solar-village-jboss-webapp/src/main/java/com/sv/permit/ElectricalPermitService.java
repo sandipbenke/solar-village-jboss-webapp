@@ -47,7 +47,7 @@ public class ElectricalPermitService{
 	public String submitPermitRequest(String customer) {
 		System.out.println("Received electrical permit request for customer. " + customer);
 		String requestId = String.valueOf(System.currentTimeMillis());
-		String requestStatus = "IN_PROGRESS";//status[new Random().nextInt(4)];
+		String requestStatus = status[new Random().nextInt(4)];
 		String pattern = "{ \"requestid\":\"%s\", \"status\":\"%s\" }";
 		String response = String.format(pattern, requestId, requestStatus);
 		System.out.println("Response to customer : " + response);
